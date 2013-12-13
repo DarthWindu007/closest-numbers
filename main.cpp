@@ -58,6 +58,7 @@ void closest(int x, int y){
 	else
 		min_diff = min(min_diff,diff);
 }
+
 int closestnumbers(vector < int > a) {
 	sort(a.begin(),a.end());
 	for (int i = 0; i < a.size(); ++i)
