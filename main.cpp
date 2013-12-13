@@ -17,8 +17,16 @@
 #include <algorithm>
 using namespace std;
 /* Head ends here */
+
 int closestnumbers(vector < int > a) {
-	
+
+	for (int i = 0; i < a.size(); ++i)
+	{
+		for (int j = 0; j < a.size(); ++j)
+		{
+			if(i!=j);
+		}
+	}
 return 0;
 }
 /* Tail starts here */
