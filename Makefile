@@ -1,4 +1,4 @@
-CC = g++ -std=c++0x
+CC = g++ -std=c++0x -w
 CFLAGS = -g -O3
 RM = /bin/rm -f 
 all: main 

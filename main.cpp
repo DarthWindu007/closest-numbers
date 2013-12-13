@@ -17,15 +17,65 @@
 #include <algorithm>
 using namespace std;
 /* Head ends here */
+class Pair
+{
+public:
+	int a,b;
+	Pair(int aa, int bb){a=aa; b=bb;};
+	Pair(){a=0; b=0;};
 
+};
+
+class Dic
+{
+public:
+	Pair key;
+	int value;
+
+	Dic(Pair k, int v){key=k; value=v;};
+	Dic(){key = Pair(); value = 0;};
+
+	friend ostream& operator<<(ostream& os, const Dic& di);
+};
+ostream& operator<<(ostream &os, const Dic &di)
+{
+	Pair tp = di.key;
+	return os << "{" << tp.a << ", " << tp.b << "}: " << di.value;
+}
+vector<Dic> d;
+
+int min_diff = 0;
+bool first = true;
+void closest(int x, int y){
+	int a = min(x,y);
+	int b = max(x,y);
+	Pair p = Pair(a,b);
+	int diff = b-a;
+	Dic dic = Dic(p,diff);
+	d.push_back(dic);
+	if(first)
+		min_diff = diff;
+	else
+		min_diff = min(min_diff,diff);
+}
 int closestnumbers(vector < int > a) {
-
+	sort(a.begin(),a.end());
 	for (int i = 0; i < a.size(); ++i)
 	{
-		for (int j = 0; j < a.size(); ++j)
+		for (int j = i; j < a.size(); ++j)
 		{
-			if(i!=j);
+			if(i!=j){
+				closest(a[i],a[j]);
+				first = false;
+			}
 		}
+	}
+	for (int i = 0; i < d.size(); ++i)
+	{
+		Dic t = d[i];
+		//cout << t << endl;
+		if(t.value == min_diff)
+			cout << t.key.a << " " << t.key.b << " ";
 	}
 return 0;
 }
@@ -44,7 +94,7 @@ int main() {
     }
     
     res = closestnumbers(_a);
-    cout << res;
+    //cout << res;
     cout << endl;
     
     return 0;
