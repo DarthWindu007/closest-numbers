@@ -15,6 +15,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 using namespace std;
 /* Head ends here */
 class Pair
@@ -61,12 +62,15 @@ void closest(int x, int y){
 
 int closestnumbers(vector < int > a) {
 	sort(a.begin(),a.end());
+    cout << "wtf" << endl;
 	for (int i = 0; i < a.size(); ++i)
 	{
 		for (int j = i; j < a.size(); ++j)
 		{
+			//cout << i << "  " << j << endl;
 			if(i!=j){
 				closest(a[i],a[j]);
+
 				first = false;
 			}
 		}
@@ -80,23 +84,69 @@ int closestnumbers(vector < int > a) {
 	}
 return 0;
 }
+
 /* Tail starts here */
 int main() {
     int res;
     
     int _a_size;
-    cin >> _a_size;
+    vector<int> _a;
+/*    cin >> _a_size;
     cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n'); 
     vector<int> _a;
     int _a_item;
     for(int _a_i=0; _a_i<_a_size; _a_i++) {
         cin >> _a_item;
         _a.push_back(_a_item);
-    }
-    
-    res = closestnumbers(_a);
+    }*/
+    //cout << "wtf" << endl;
+    //res = closestnumbers(_a);
+    //cout << "wtf" << endl;
     //cout << res;
-    cout << endl;
-    
-    return 0;
+    //cout << endl;
+    string file;
+    cin >> file;
+	ifstream inpfile(file.c_str());
+	if(!inpfile.is_open()) {
+	cout << "Unable to open file" << endl;
+	} else {
+	string line;
+	//MatrixStack mst;
+
+	while(inpfile.good()) {
+	  std::vector<std::string> splitline;
+	  std::string buf;
+
+	  std::getline(inpfile,line);
+	  std::stringstream ss(line);
+
+	  while (ss >> buf) {
+	    splitline.push_back(buf);
+	  }
+	  //Ignore blank lines
+	  if(splitline.size() == 0) {
+	    continue;
+	  }
+
+	  //Ignore comments
+	  if(splitline[0][0] == '#') {
+	    continue;
+	  }
+	  else if(!splitline[0].compare("num")) {
+	    _a_size = atoi(splitline[1].c_str());
+	  }
+	  else{
+	  	for (int i = 0; i < _a_size; ++i)
+	  	{
+	  		cout << "wtf input" << endl;
+	  		cout << atoi(splitline[i].c_str()) << endl;
+	  		_a.push_back(atoi(splitline[i].c_str()));
+	  	}
+	  }
+	}
+	}
+	cout << "wtf" << endl;
+	res = closestnumbers(_a);
+	cout << endl;
+	return 0;
 }
